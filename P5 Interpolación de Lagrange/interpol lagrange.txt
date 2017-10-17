@@ -1,0 +1,22 @@
+clear;close all;clc
+fprintf('\nMÉTODOS NUMÉRICOS - INTERPOLACIÓN DE LAGRANGE\n')
+fprintf('Alumno: Gonzalo Guerrero\n\n')
+%% INPUTS
+x=input('Valores de x: ');
+y=input('Valores de y: ');
+xI=input('Ingrese el valor xI a interpolar: ');
+n=length(x)-1;
+s=0;
+%% FÓRMULA de Lagrange
+for i=1:n+1;
+    p=y(i);
+    for j=1:n+1;
+        if i~=j;
+            p=p*(xI-x(j))/(x(i)-x(j));
+        end
+    end
+s=s+p;
+end
+%% PRINTEADO de Resultados
+fprintf('\n')
+fprintf('El valor interpolado f(%3.2f)es: %2.6f\n',xI,s)

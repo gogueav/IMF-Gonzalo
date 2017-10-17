@@ -1,0 +1,17 @@
+function s = interp_lagrange(x,y,xI)
+%{
+interp_lagrange([1 4 6 5],[0 1.386294 1.791759 1.609438],2)
+%}
+format long
+n=length(x)-1;
+s=0;
+for i=1:n+1;
+    p=y(i);
+    for j=1:n+1;
+        if i~=j;
+            p=p*(xI-x(j))/(x(i)-x(j));
+        end
+    end
+s=s+p;
+end
+end
