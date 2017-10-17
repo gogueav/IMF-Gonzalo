@@ -1,0 +1,43 @@
+clear,clc
+%EJERCICIO 01 PROBLEMAS PROPUESTOS
+% a) ezplot('-0.5*x^2+2.5*x+4.5',[-15,15,-15,15])
+% grid on
+% b)Empleando la fórmula cuadrática
+% raiz1=(-b+sqrt(b^2-4a*c))/2*a
+% raiz2=(-b-sqrt(b^2-4a*c))/2*a
+% f(x)= –0.5*x^2 + 2.5*x + 4.5
+% a = -0.5 ;  b = 2.5  ;  c=4.5
+x1=(-2.5+sqrt(2.5^2-4*(-0.5)*(4.5)))/(2*-0.5);
+x2=(-2.5-sqrt(2.5^2-4*(-0.5)*(4.5)))/(2*-0.5);
+fprintf('\n Las raíces son\t X1=%3.5f\t X2=%3.5f\n',x1,x2)
+% c)Usando el método de bisección con tres iteraciones para
+% determinar la raíz más grande. Emplee como valores iniciales
+% xl = 5 y xu = 10. Calcule el error estimado ea y el error
+% verdadero et para cada iteración.
+f='-0.5*x^2+2.5*x+4.5';
+f=inline(f);
+xu=input('Introduzca el límite inferior: ');
+xl=input('Introduzca el límite superior: ');
+% imax=input('¿Cantidad máxima de iteraciones?: ');
+R=1;
+xr=0;
+Et=1;
+%raiz mayor real
+disp(['     ea        xr      iteración   ErrorVerdadero '])
+for (i=1:3)
+    xrold=xr;
+    xr=(xl+xu)/2;
+    ea=abs(((xu-xl)/(xu+xl))*100);
+    EA=abs((xr-xrold)/xr)*100;
+    R=f(xl)*f(xr);
+%     Et=abs(((x2-xr)/(x2))*100);
+    if R>0
+        xl=xr;
+    elseif R<0
+        xu=xr;
+    else
+        ea=0;
+    end
+    fprintf('\n\t %2.6f\t%2.6f\t%2.6f\t%2.6f\t%2.5f',ea,xr,i,Et,EA)
+    i=i+1;
+end

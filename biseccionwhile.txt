@@ -1,0 +1,49 @@
+clear all
+clc
+
+fprintf('\nMÉTODOS NUMÉRICOS - 1°Práctica')
+fprintf('\nMÉTODO DE LA BISECCIÓN\n\n')
+
+%Variables de entrada:
+f=input('Introduzca la función: ','s');
+f=inline(f);
+xl=input('Digite el límite inferior: ');
+xu=input('Digite el límite superior: ');
+
+while f(xl)*f(xu)>0
+    xl=input('Reingrese el nuevo valor de xl: ');
+    xu=input('Reingrese el nuevo valor de xu: ');
+end
+
+es=input('¿Error estimado?: ');
+imax=input('¿Cantidad máxima de iteraciones?: ');
+
+
+iter=0;
+ea=1; %ea=abs((xu-xl)/(xu+xl))*100
+xr=0;
+while (iter<imax)&&(ea>es)
+    xrold=xr;
+    xr=(xl+xu)/2;
+    iter=iter+1;
+    if xr~=0
+        ea=abs(((xrold-xr)/xr)*100);
+    end
+    R=f(xl)*f(xr);
+    if R>0
+        xl=xr;
+    elseif R<0
+        xu=xr;
+    else
+        ea=0;
+    end
+    %disp([ea,xr,i])
+end
+
+if iter>imax
+    fprintf('\n La raíz no converge \n')
+end
+
+fprintf('La raiz es : %3.6f\n',xr) %VS
+fprintf('El error aproximado es %3.6f\n',ea) %VS
+fprintf('La cantidad de iteraciones es %d\n',iter)
